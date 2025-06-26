@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-14QPLF39JS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}  
+    gtag('js', new Date());
+    gtag('config', 'G-14QPLF39JS');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rohan Barrowcliff's personal site." />
+  <title>Rohan Barrowcliff</title>
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Override blog post alignment and link styling */
+    .post-title {
+      text-align: left;
+      margin-bottom: 0.5rem;
+    }
+    .post-link {
+      text-decoration: none;
+      color: inherit;
+      font-weight: bold;
+      font-style: italic;
+    }
+    .post-description {
+      text-align: left;
+      max-width: 700px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="navbar">
+      <h1 class="site-title">
+        <a href="index.html" class="home-link">Rohan Barrowcliff</a>
+      </h1>
+      <nav class="nav-links">
+        <a href="#blog">Blog</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="blog">
+      <article class="post">
+        <h3 class="post-title">
+          <a href="operating-theatres-overrun-prediction.html" class="post-link">
+            June 18, 2025 — Operating Theatres and Overrun Prediction
+          </a>
+        </h3>
+        <img src="theatre_room.jpeg"
+             alt="Operating Theatres Overrun"
+             class="post-image preview-image" />
+        <p class="post-description">Exploring inefficiencies in NHS surgical theatre scheduling and predictive modelling techniques using SHAP and classification.</p>
+      </article>
+    </section>
+
+    <section class="section" id="about">
+      <h2>About Me</h2>
+      <p>Health Data Scientist and AI researcher with a background in digital healthcare, statistical modelling, and NLP applications in clinical settings.</p>
+    </section>
+
+    <section class="section" id="contact">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:rgbweston@gmail.com" class="home-link">rgbweston@gmail.com</a></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Rohan Barrowcliff</p>
+  </footer>
+
+  <script>
+    // Simple fade-in animation on scroll
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(sec => observer.observe(sec));
+  </script>
+</body>
+</html>
