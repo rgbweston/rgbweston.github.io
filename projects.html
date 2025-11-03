@@ -123,6 +123,38 @@
           </div>
         </article>
 
+        <!-- Project 2: Patient QA System -->
+        <article class="project-card" style="margin-bottom: 4rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+          <img src="assets/images/qa_system_flowchart.png" alt="Patient QA System with RAG Architecture" class="project-image">
+          <div class="project-content">
+            <h2>Patient QA System with Retrieval-Augmented Generation</h2>
+
+            <p><strong>Problem</strong></p>
+            <p>Existing patient QA systems rely on rigid keyword matching and retrieval-only methods that sacrifice conversational fluency for safety. Academic prototypes using generative AI often hallucinate or lack evaluation metrics, making them unsuitable for deployment in healthcare settings where accuracy is paramount.</p>
+
+            <p><strong>Approach / Tools</strong></p>
+            <p>Developed a Retrieval-Augmented Generation (RAG) pipeline using BioBERT dense embeddings and FAISS vector search to retrieve relevant NHS document chunks. Implemented intelligent chunking strategies, optimized top-k retrieval (k=15), and engineered zero-shot prompts for the Phi-4-mini-instruct LLM. The system was evaluated on 211 expert-validated QA pairs using ROUGE-Lsum precision, BERTScore, and manual assessment of fluency, omissions, and hallucinations.</p>
+
+            <p><strong>Results / Insights</strong></p>
+            <p>Achieved a 40% improvement in ROUGE-Lsum precision (0.39 → 0.55) and 92.6% BERT F1 score while maintaining 100% fluency and zero hallucinations. Manual evaluation showed 68% of responses had no omissions. The project demonstrated that RAG can deliver both high factual accuracy and natural conversational quality, addressing a critical gap in patient-facing health information systems.</p>
+
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">BioBERT</span>
+              <span class="tag">FAISS</span>
+              <span class="tag">RAG</span>
+              <span class="tag">NLP</span>
+              <span class="tag">LLMs</span>
+              <span class="tag">Healthcare</span>
+            </div>
+
+            <p class="mt-2">
+              <a href="patient-qa-system.html" class="cta-button">Read Full Case Study</a>
+              <a href="https://github.com/rgbweston" target="_blank" rel="noopener noreferrer" class="cta-secondary" style="margin-left: 1rem;">View on GitHub</a>
+            </p>
+          </div>
+        </article>
+
         <!-- Placeholder for Future Projects -->
         <div class="text-center" style="padding: 3rem 0;">
           <p style="color: var(--text-secondary); font-size: 1.1rem;">More projects coming soon...</p>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- SEO Meta Tags -->
+  <title>Patient QA System with RAG — Rohan Barrowcliff</title>
+  <meta name="description" content="Development of a patient question-answering system using Retrieval-Augmented Generation with BioBERT, FAISS, and LLMs for accurate health information delivery.">
+  <meta name="keywords" content="patient QA, RAG, retrieval-augmented generation, BioBERT, FAISS, NLP, healthcare, LLM, Phi-4">
+  <meta name="author" content="Rohan Barrowcliff">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://rgbweston.github.io/patient-qa-system.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://rgbweston.github.io/patient-qa-system.html">
+  <meta property="og:title" content="Patient QA System with RAG">
+  <meta property="og:description" content="Development of a patient question-answering system using RAG with BioBERT and FAISS for accurate health information.">
+  <meta property="og:image" content="https://rgbweston.github.io/assets/images/qa_system_flowchart.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/main.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-14QPLF39JS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-14QPLF39JS');
+  </script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Patient QA System Development with Retrieval-Augmented Generation",
+    "author": {
+      "@type": "Person",
+      "name": "Rohan Barrowcliff"
+    },
+    "description": "Development of a patient QA system using RAG with BioBERT, FAISS, and LLMs for accurate health information delivery.",
+    "image": "https://rgbweston.github.io/assets/images/qa_system_flowchart.png"
+  }
+  </script>
+
+  <style>
+    .article-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .article-content img {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      border-radius: 8px;
+      margin: 2rem auto;
+      display: block;
+      border: 1px solid var(--border-color);
+    }
+    .article-content p {
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .metric-card {
+      background: var(--background-alt);
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+    }
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+    }
+    .metric-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .highlight-box {
+      background: var(--background-alt);
+      border-left: 4px solid var(--accent-color);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border-radius: 4px;
+    }
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .tech-tag {
+      background: var(--accent-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="container nav-wrapper">
+      <a href="index.html" class="site-logo">Rohan Barrowcliff</a>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <article class="section">
+      <div class="container article-content">
+
+        <h1 style="text-align: center; margin-bottom: 1rem;">Patient QA System Development with RAG</h1>
+        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+          Building an accurate, fluent patient question-answering system using Retrieval-Augmented Generation
+        </p>
+
+        <img src="assets/images/qa_system_flowchart.png" alt="Patient QA System Architecture using RAG">
+
+        <h2>Project Overview</h2>
+        <p>
+          Patient QA systems provide health-related information and guidance to the public, requiring strict safeguards to ensure accuracy and reliability. This project developed a Retrieval-Augmented Generation (RAG) pipeline that retrieves vetted NHS documents and generates accurate, fluent responses to patient health questions.
+        </p>
+
+        <div class="highlight-box">
+          <p style="margin-bottom: 0;"><strong>Challenge:</strong> Traditional patient QA systems rely on retrieval-only methods to avoid hallucinations, sacrificing fluency and conversational quality. This project aimed to achieve both high accuracy and natural language fluency using advanced RAG techniques.</p>
+        </div>
+
+        <h2>Problem Statement</h2>
+        <p>
+          Existing patient QA chatbots (e.g., WHO COVID-19 WhatsApp bot, NHS-Alexa) use keyword matching and simple retrieval methods that return rigid, template-based responses. While safe from hallucinations, they lack conversational fluency. Academic prototypes using generation models often lack evaluation metrics or fail to use vetted health authority documents, making them unsuitable for deployment.
+        </p>
+
+        <p>
+          <strong>Research Gap:</strong> No published study had demonstrated an auditable RAG pipeline that:
+        </p>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li>Grounds every response in NHS source documents</li>
+          <li>Achieves very high factual precision</li>
+          <li>Maintains natural, fluent conversational tone</li>
+          <li>Provides transparent, reproducible evaluation metrics</li>
+        </ul>
+
+        <h2>Approach & Methodology</h2>
+
+        <h3>Dataset</h3>
+        <p>
+          The project used the <strong>OpenGPT dataset</strong> (CogStack, UCL/KCL), containing 211 expert-validated question-answer pairs across 23 diseases, each linked to NHS reference documents. This enabled rigorous evaluation of retrieval and generation quality against gold-standard medical content.
+        </p>
+
+        <h3>Technical Architecture</h3>
+
+        <div class="tech-stack">
+          <span class="tech-tag">BioBERT</span>
+          <span class="tech-tag">FAISS</span>
+          <span class="tech-tag">Phi-4-mini-instruct</span>
+          <span class="tech-tag">RAG</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">PyTorch</span>
+          <span class="tech-tag">Transformers</span>
+        </div>
+
+        <p><strong>Two systems were developed:</strong></p>
+
+        <div style="background: var(--background-alt); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+          <h4 style="margin-top: 0;">1. Baseline Model</h4>
+          <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 1.8;">
+            <li><strong>Retrieval:</strong> TF-IDF sparse retrieval (k=5 chunks)</li>
+            <li><strong>Chunking:</strong> Paragraph-based splitting on double newlines</li>
+            <li><strong>Generation:</strong> Phi-4-mini-instruct LLM with basic prompting</li>
+          </ul>
+        </div>
+
+        <div style="background: var(--background-alt); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+          <h4 style="margin-top: 0;">2. Optimized Model</h4>
+          <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 1.8;">
+            <li><strong>Retrieval:</strong> BioBERT dense embeddings + FAISS vector search</li>
+            <li><strong>Chunking:</strong> Intelligent merging (minimum 10 words per chunk)</li>
+            <li><strong>Top-k:</strong> Increased from 5 to 15 retrieved chunks</li>
+            <li><strong>Prompting:</strong> Zero-shot instruction tuning for conciseness and fidelity</li>
+            <li><strong>Generation:</strong> Phi-4-mini-instruct with constrained generation</li>
+          </ul>
+        </div>
+
+        <h3>Key Innovations</h3>
+
+        <p><strong>1. Dense Retrieval with BioBERT</strong></p>
+        <p>
+          BioBERT embeddings capture both contextual and biomedical meaning from sub-word tokenization, enabling semantic matching between lay patient questions and clinical NHS text. Combined with FAISS for efficient vector search, this approach significantly improved retrieval relevance over keyword-based TF-IDF.
+        </p>
+
+        <p><strong>2. Improved Text Chunking</strong></p>
+        <p>
+          Analysis revealed that naive paragraph splitting created many meaningless short chunks (e.g., "NHS", "Skip to main content"). The optimized chunking method merged adjacent chunks shorter than 10 words, reducing average chunks from 21.1 to 12.5 per document while improving semantic coherence.
+        </p>
+
+        <p><strong>3. Prompt Engineering</strong></p>
+        <p>
+          System prompts were refined based on analysis showing reference answers averaged 1.97 sentences. The optimized prompt instructed the model to provide "1-2 complete sentences unless the question requires elaboration," improving conciseness and alignment with expert answers.
+        </p>
+
+        <h2>Results & Impact</h2>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value">0.55</div>
+            <div class="metric-label">ROUGE-Lsum Precision</div>
+            <small style="color: var(--text-secondary); font-size: 0.8rem;">+40% from baseline</small>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">0.93</div>
+            <div class="metric-label">BERT F1 Score</div>
+            <small style="color: var(--text-secondary); font-size: 0.8rem;">High semantic accuracy</small>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">100%</div>
+            <div class="metric-label">Fluency Score</div>
+            <small style="color: var(--text-secondary); font-size: 0.8rem;">Perfect fluency maintained</small>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">0%</div>
+            <div class="metric-label">Hallucinations</div>
+            <small style="color: var(--text-secondary); font-size: 0.8rem;">Zero fabricated information</small>
+          </div>
+        </div>
+
+        <h3>Manual Evaluation (50-question benchmark)</h3>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li><strong>Omission:</strong> "No omission" scores improved from 62% to 68%</li>
+          <li><strong>Hallucination:</strong> Optimized model achieved 100% accuracy (baseline: 2 minor errors)</li>
+          <li><strong>Fluency:</strong> Both models achieved 100% "perfectly fluent" ratings</li>
+        </ul>
+
+        <div class="highlight-box">
+          <p style="margin-bottom: 0;"><strong>Key Finding:</strong> The optimized RAG pipeline achieved a 40% improvement in ROUGE-Lsum precision (0.39 → 0.55) while maintaining perfect fluency and eliminating all hallucinations—demonstrating that accuracy and conversational quality are not mutually exclusive in patient QA systems.</p>
+        </div>
+
+        <h2>Technical Insights</h2>
+
+        <p><strong>Retrieval Method Comparison</strong></p>
+        <p>
+          Dense retrieval with BioBERT outperformed TF-IDF particularly at higher k values (k=15), as the semantic understanding allowed better ranking of relevant chunks even when vocabulary didn't exactly match between questions and NHS text.
+        </p>
+
+        <p><strong>Top-k Optimization</strong></p>
+        <p>
+          Increasing k from 5 to 15 yielded the largest single improvement in ROUGE-Lsum precision (+18.3%), suggesting that providing the LLM with more context enabled better answer synthesis while maintaining accuracy.
+        </p>
+
+        <p><strong>Limitations & Future Work</strong></p>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li>Some omissions of critical escalation information (e.g., "when to seek emergency care")</li>
+          <li>Chunking could be further improved with sliding-window approaches (128-2048 tokens with overlap)</li>
+          <li>Potential for automated hyperparameter optimization using Bayesian methods ("AutoRAG")</li>
+          <li>Future work: framework for context-dependent chunking strategies</li>
+        </ul>
+
+        <h2>Tools & Technologies</h2>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li><strong>BioBERT:</strong> Biomedical language model for contextual embeddings</li>
+          <li><strong>FAISS:</strong> Efficient vector similarity search</li>
+          <li><strong>Phi-4-mini-instruct:</strong> Microsoft's instruction-tuned LLM</li>
+          <li><strong>ROUGE & BERTScore:</strong> Evaluation metrics for text generation quality</li>
+          <li><strong>Python, PyTorch, Transformers:</strong> Implementation stack</li>
+        </ul>
+
+        <h2>Significance</h2>
+        <p>
+          This project demonstrates that Retrieval-Augmented Generation can produce patient-facing health information that is simultaneously:
+        </p>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li><strong>Safe:</strong> Zero hallucinations, fully grounded in vetted NHS documents</li>
+          <li><strong>Accurate:</strong> 92.6% BERT F1 semantic similarity to expert answers</li>
+          <li><strong>Fluent:</strong> 100% natural, conversational responses</li>
+          <li><strong>Transparent:</strong> Auditable retrieval pipeline with comprehensive metrics</li>
+        </ul>
+
+        <p>
+          By publishing detailed methodology and evaluation metrics, this work addresses a critical gap in patient QA system research and provides a foundation for deploying trustworthy AI-powered health information systems.
+        </p>
+
+        <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+          <p><a href="projects.html" class="read-more">← Back to Projects</a></p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p class="copyright">&copy; 2025 Rohan Barrowcliff | Data Science & Analytics</p>
+      <ul class="footer-links">
+        <li><a href="https://linkedin.com/in/rohanbarrowcliff" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="https://github.com/rgbweston" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="mailto:rgbweston@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
