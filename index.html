@@ -1,96 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
+  <!-- Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- SEO Meta Tags -->
+  <title>Rohan Barrowcliff — Data Scientist | Healthcare Analytics & NLP</title>
+  <meta name="description" content="Data Scientist helping healthcare teams make data-driven decisions through predictive modelling, NLP, clinical text mining, and visual analytics.">
+  <meta name="keywords" content="data scientist, healthcare analytics, predictive modelling, NLP, clinical text mining, Power BI, machine learning, health data">
+  <meta name="author" content="Rohan Barrowcliff">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://rgbweston.github.io/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rgbweston.github.io/">
+  <meta property="og:title" content="Rohan Barrowcliff — Data Scientist | Healthcare Analytics">
+  <meta property="og:description" content="Data Scientist helping healthcare teams make data-driven decisions through predictive modelling, NLP, and visual analytics.">
+  <meta property="og:image" content="https://rgbweston.github.io/assets/images/og-image.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://rgbweston.github.io/">
+  <meta name="twitter:title" content="Rohan Barrowcliff — Data Scientist | Healthcare Analytics">
+  <meta name="twitter:description" content="Data Scientist helping healthcare teams make data-driven decisions through predictive modelling, NLP, and visual analytics.">
+  <meta name="twitter:image" content="https://rgbweston.github.io/assets/images/og-image.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/main.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-14QPLF39JS"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}  
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-14QPLF39JS');
   </script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Rohan Barrowcliff's personal site." />
-  <title>Rohan Barrowcliff</title>
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Override blog post alignment and link styling */
-    .post-title {
-      text-align: left;
-      margin-bottom: 0.5rem;
-    }
-    .post-link {
-      text-decoration: none;
-      color: inherit;
-      font-weight: bold;
-      font-style: italic;
-    }
-    .post-description {
-      text-align: left;
-      max-width: 700px;
-      margin: auto;
-    }
-  </style>
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Rohan Barrowcliff",
+    "jobTitle": "Data Scientist",
+    "url": "https://rgbweston.github.io",
+    "sameAs": [
+      "https://linkedin.com/in/rohanbarrowcliff",
+      "https://github.com/rgbweston"
+    ],
+    "knowsAbout": [
+      "Data Science",
+      "Healthcare Analytics",
+      "Predictive Modelling",
+      "Natural Language Processing",
+      "Machine Learning",
+      "Clinical Text Mining",
+      "Business Intelligence"
+    ],
+    "description": "Data Scientist specializing in healthcare analytics, predictive modelling, and NLP applications in clinical settings."
+  }
+  </script>
 </head>
 <body>
-  <header class="hero">
-    <div class="navbar">
-      <h1 class="site-title">
-        <a href="index.html" class="home-link">Rohan Barrowcliff</a>
-      </h1>
-      <nav class="nav-links">
-        <a href="#blog">Blog</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="container nav-wrapper">
+      <a href="index.html" class="site-logo">Rohan Barrowcliff</a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main>
-    <section class="section" id="blog">
-      <article class="post">
-        <h3 class="post-title">
-          <a href="operating-theatres-overrun-prediction.html" class="post-link">
-            June 18, 2025 — Operating Theatres and Overrun Prediction
-          </a>
-        </h3>
-        <img src="theatre_room.jpg"
-             alt="Operating Theatres Overrun"
-             class="post-image preview-image" />
-        <p class="post-description">Exploring inefficiencies in NHS surgical theatre scheduling and predictive modelling techniques using SHAP and classification.</p>
-      </article>
+    <!-- Hero Section -->
+    <section class="hero container">
+      <h1>Rohan Barrowcliff</h1>
+      <p class="tagline">Data Scientist helping healthcare teams make data-driven decisions.</p>
+      <div>
+        <a href="projects.html" class="cta-button">View Work</a>
+        <a href="contact.html" class="cta-secondary">Get in Touch</a>
+      </div>
     </section>
 
-    <section class="section" id="about">
-      <h2>About Me</h2>
-      <p>Health Data Scientist and AI researcher with a background in digital healthcare, statistical modelling, and NLP applications in clinical settings.</p>
+    <!-- Expertise Section -->
+    <section class="section section-alt">
+      <div class="container">
+        <h2 class="section-title">Expertise</h2>
+        <div class="expertise-grid">
+          <div class="expertise-item">
+            <div class="expertise-icon">📊</div>
+            <h3>Predictive Modelling</h3>
+            <p>Building robust statistical and machine learning models for healthcare forecasting</p>
+          </div>
+          <div class="expertise-item">
+            <div class="expertise-icon">💬</div>
+            <h3>NLP & Clinical Text Mining</h3>
+            <p>Extracting insights from unstructured clinical narratives and medical records</p>
+          </div>
+          <div class="expertise-item">
+            <div class="expertise-icon">📈</div>
+            <h3>BI Dashboards & Visual Analytics</h3>
+            <p>Creating intuitive Power BI and Streamlit dashboards for decision-makers</p>
+          </div>
+          <div class="expertise-item">
+            <div class="expertise-icon">⚙️</div>
+            <h3>End-to-End Data Pipelines</h3>
+            <p>Designing scalable data infrastructure from ingestion to deployment</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="section" id="contact">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:rgbweston@gmail.com" class="home-link">rgbweston@gmail.com</a></p>
+    <!-- Selected Work Section -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Selected Work</h2>
+        <div class="projects-grid">
+
+          <!-- Project 1: Operating Theatres -->
+          <article class="project-card">
+            <img src="assets/images/theatre_room.jpg" alt="Operating Theatre Overrun Prediction" class="project-image">
+            <div class="project-content">
+              <h3>Operating Theatre Overrun Prediction</h3>
+              <p>Predictive modelling to identify surgical cases at risk of time overruns, using SHAP for interpretability and classification techniques.</p>
+              <div class="project-tags">
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Healthcare</span>
+                <span class="tag">SHAP</span>
+              </div>
+              <p class="mt-2"><a href="operating-theatres-overrun-prediction.html" class="read-more">Read case study →</a></p>
+            </div>
+          </article>
+
+          <!-- Placeholder for future projects -->
+          <article class="project-card">
+            <img src="https://via.placeholder.com/400x200/f9fafb/6b7280?text=Project+Coming+Soon" alt="Project placeholder" class="project-image">
+            <div class="project-content">
+              <h3>Coming Soon</h3>
+              <p>More projects will be added here as they are completed.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
     </section>
+
+    <!-- Bio Section -->
+    <section class="section section-alt">
+      <div class="container bio">
+        <h2 class="section-title">About Me</h2>
+        <p>I'm a Health Data Scientist and AI researcher with a passion for transforming complex healthcare data into actionable insights. With a background in digital healthcare, statistical modelling, and natural language processing, I help clinical and operational teams leverage data science to improve patient outcomes and operational efficiency.</p>
+        <p class="mt-2"><a href="about.html" class="cta-button">Learn more about me</a></p>
+      </div>
+    </section>
+
+    <!-- CTA Footer Section -->
+    <section class="section">
+      <div class="container text-center">
+        <h2>Let's Work Together</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+          Whether you need predictive models, NLP solutions, or data visualisation, I'd love to discuss how I can help your team make better data-driven decisions.
+        </p>
+        <a href="contact.html" class="cta-button">Get in Touch</a>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="footer">
-    <p>&copy; 2025 Rohan Barrowcliff</p>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p class="copyright">&copy; 2025 Rohan Barrowcliff | Data Science & Analytics</p>
+      <ul class="footer-links">
+        <li><a href="https://linkedin.com/in/rohanbarrowcliff" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="https://github.com/rgbweston" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="mailto:rgbweston@gmail.com">Email</a></li>
+      </ul>
+    </div>
   </footer>
 
-  <script>
-    // Simple fade-in animation on scroll
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in');
-        }
-      });
-    }, { threshold: 0.1 });
-    sections.forEach(sec => observer.observe(sec));
-  </script>
 </body>
 </html>
