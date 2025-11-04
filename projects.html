@@ -93,32 +93,34 @@
     <section class="section">
       <div class="container">
 
-        <!-- Project 1: Operating Theatre Overrun Prediction -->
+        <!-- Project 1: Surgery Duration Prediction with AutoML -->
         <article class="project-card" style="margin-bottom: 4rem; max-width: 900px; margin-left: auto; margin-right: auto;">
-          <img src="assets/images/theatre_room.jpg" alt="Operating Theatre Overrun Prediction" class="project-image">
+          <img src="assets/images/theatre_room.jpg" alt="Surgery Duration Prediction with AutoML" class="project-image">
           <div class="project-content">
-            <h2>Operating Theatre Overrun Prediction</h2>
+            <h2>Surgery Duration Prediction with AutoML</h2>
 
             <p><strong>Problem</strong></p>
-            <p>NHS surgical theatres frequently experience time overruns, leading to cancelled procedures, staff overtime, and reduced patient throughput. Identifying cases at risk of overrunning before they occur could enable better resource allocation and scheduling.</p>
+            <p>Operating room inefficiencies cost the NHS over £400 million annually. Traditional surgery duration estimation methods (surgeon estimates: 59-70 min MAE, historical averages: 31-38 min MAE) are inaccurate, leading to late starts, cancellations, and wasted capacity. With 7.4 million patients on NHS waiting lists, accurate prediction is critical.</p>
 
             <p><strong>Approach / Tools</strong></p>
-            <p>Developed a binary classification model using AutoGluon to predict whether surgical cases would exceed their scheduled duration. Implemented SHAP (SHapley Additive exPlanations) values for model interpretability, allowing clinical stakeholders to understand which factors (procedure type, surgeon experience, time of day, etc.) most strongly predict overruns. The solution was deployed as an interactive dashboard for theatre managers.</p>
+            <p>Evaluated AutoGluon, an automated machine learning (AutoML) framework, for surgery duration prediction using 94,502 elective orthopaedic procedures from East Kent Hospitals NHS Foundation Trust. Compared AutoGluon against linear regression, XGBoost, and neural networks under identical preprocessing. Implemented SHAP analysis to identify key drivers of duration and overrun risk.</p>
 
             <p><strong>Results / Insights</strong></p>
-            <p>Achieved 78% accuracy in predicting overruns, with key insights showing that emergency cases, complex procedures, and late-day surgeries were the strongest predictors. The model enabled proactive intervention and improved theatre utilisation by 12%.</p>
+            <p>AutoGluon achieved 15.70 min MAE (26% improvement over XGBoost) and 11.84 min with extended training (46% improvement over surgeon estimates). SHAP analysis identified procedure type, inpatient status, and anaesthetic type as strongest predictors. Findings enable data-driven scheduling optimization without requiring extensive ML expertise.</p>
 
             <div class="project-tags">
               <span class="tag">Python</span>
               <span class="tag">AutoGluon</span>
+              <span class="tag">XGBoost</span>
               <span class="tag">SHAP</span>
-              <span class="tag">Classification</span>
+              <span class="tag">AutoML</span>
               <span class="tag">Healthcare</span>
+              <span class="tag">NHS</span>
             </div>
 
             <p class="mt-2">
-              <a href="operating-theatres-overrun-prediction.html" class="cta-button">Read Full Case Study</a>
-              <a href="https://github.com/rgbweston" target="_blank" rel="noopener noreferrer" class="cta-secondary" style="margin-left: 1rem;">View on GitHub</a>
+              <a href="surgery-scheduling-ml.html" class="cta-button">Read Full Case Study</a>
+              <a href="https://github.com/rgbweston/surgery-analytics" target="_blank" rel="noopener noreferrer" class="cta-secondary" style="margin-left: 1rem;">View on GitHub</a>
             </p>
           </div>
         </article>

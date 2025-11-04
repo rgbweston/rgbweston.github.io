@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- SEO Meta Tags -->
+  <title>Surgery Scheduling with AutoML — Rohan Barrowcliff</title>
+  <meta name="description" content="AI-powered surgery duration prediction using AutoGluon AutoML, achieving 46% improvement over surgeon estimates and reducing NHS operating room inefficiencies.">
+  <meta name="keywords" content="AutoML, AutoGluon, surgery prediction, NHS, operating room efficiency, machine learning healthcare, SHAP analysis">
+  <meta name="author" content="Rohan Barrowcliff">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://rgbweston.github.io/surgery-scheduling-ml.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://rgbweston.github.io/surgery-scheduling-ml.html">
+  <meta property="og:title" content="Surgery Scheduling with AutoML — Rohan Barrowcliff">
+  <meta property="og:description" content="AI-powered surgery duration prediction using AutoGluon AutoML, achieving 46% improvement over surgeon estimates.">
+  <meta property="og:image" content="https://rgbweston.github.io/assets/images/og-image.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://rgbweston.github.io/surgery-scheduling-ml.html">
+  <meta name="twitter:title" content="Surgery Scheduling with AutoML">
+  <meta name="twitter:description" content="AI-powered surgery duration prediction using AutoGluon AutoML.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/main.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-14QPLF39JS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-14QPLF39JS');
+  </script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Surgery Duration Prediction with AutoML and SHAP Analysis",
+    "author": {
+      "@type": "Person",
+      "name": "Rohan Barrowcliff"
+    },
+    "datePublished": "2025-06-18",
+    "description": "AI-powered surgery duration prediction using AutoGluon AutoML framework, achieving 46% improvement over traditional surgeon estimates"
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="container nav-wrapper">
+      <a href="index.html" class="site-logo">Rohan Barrowcliff</a>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Project Header -->
+    <section class="section">
+      <div class="container" style="max-width: 900px;">
+        <p><a href="projects.html" class="read-more">← Back to Projects</a></p>
+        <h1>Surgery Duration Prediction with AutoML</h1>
+        <p class="subtitle" style="color: var(--text-secondary); font-size: 1.1rem; margin-top: 1rem;">
+          Leveraging automated machine learning to reduce NHS operating room inefficiencies and improve theatre utilisation
+        </p>
+
+        <div class="project-tags" style="margin-top: 1.5rem;">
+          <span class="tag">Python</span>
+          <span class="tag">AutoGluon</span>
+          <span class="tag">XGBoost</span>
+          <span class="tag">SHAP</span>
+          <span class="tag">Healthcare</span>
+          <span class="tag">AutoML</span>
+          <span class="tag">NHS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section" style="background: var(--bg-light); padding: 3rem 0;">
+      <div class="container" style="max-width: 900px;">
+        <h2>The Problem</h2>
+
+        <p><strong>Operating room inefficiencies cost the NHS over £400 million annually.</strong> With OR operational costs ranging from £14-£30 per minute, accurate surgery duration prediction is critical for reducing overruns, avoiding idle time, and maximising theatre utilisation.</p>
+
+        <div style="background: white; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+          <h3 style="margin-top: 0; color: var(--accent-color);">Key Challenges</h3>
+          <ul style="line-height: 1.8;">
+            <li><strong>7.4 million patients</strong> on NHS waiting lists (March 2025)</li>
+            <li><strong>Traditional methods are inaccurate:</strong>
+              <ul style="margin-top: 0.5rem;">
+                <li>Surgeon estimates: 59-70 minute mean absolute error (MAE)</li>
+                <li>Historical averages: 31-38 minute MAE</li>
+              </ul>
+            </li>
+            <li><strong>Consequences of poor estimation:</strong> Late starts, last-minute cancellations, staff overtime, wasted capacity</li>
+            <li><strong>Limited technical resources:</strong> Many trusts lack ML expertise for implementing advanced predictive models</li>
+          </ul>
+        </div>
+
+        <blockquote style="border-left: 4px solid var(--accent-color); padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: var(--text-secondary);">
+          "Surgeon estimates incorporate real-time insights but are inherently subjective, prone to cognitive biases, and impose unnecessary cognitive load on clinical staff who should focus on patient care."
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="section">
+      <div class="container" style="max-width: 900px;">
+        <h2>The Solution</h2>
+
+        <p>This study evaluated <strong>AutoGluon</strong>, an automated machine learning (AutoML) framework, for surgery duration prediction using a retrospective dataset of <strong>94,502 elective orthopaedic procedures</strong> from East Kent Hospitals University NHS Foundation Trust (2010-2025).</p>
+
+        <h3>AutoGluon: Automated Machine Learning</h3>
+        <p>AutoGluon automates the entire ML pipeline—algorithm selection, hyperparameter optimization, feature engineering, and model validation—enabling sophisticated predictive modeling without requiring extensive ML expertise.</p>
+
+        <!-- AutoGluon Architecture -->
+        <div style="background: var(--bg-light); padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+          <h4 style="margin-top: 0;">Multi-Layer Stacking Architecture</h4>
+          <img src="assets/images/autogluon_stacking.png" alt="AutoGluon multi-layer stacking with bagging" style="width: 100%; max-width: 700px; display: block; margin: 1.5rem auto; border-radius: 4px;">
+          <p style="text-align: center; color: var(--text-secondary); font-size: 0.95rem; margin-top: 1rem;">AutoGluon's unique multi-layer stacking with multi-fold bagging enables incremental predictive power gains while maintaining independence between layers.</p>
+        </div>
+
+        <h3>Model Comparison Methodology</h3>
+        <p>AutoGluon's performance was rigorously compared against three baseline models under identical preprocessing and computational budgets:</p>
+        <ul style="line-height: 1.8;">
+          <li><strong>Linear Regression</strong> - Simple baseline</li>
+          <li><strong>XGBoost</strong> - State-of-the-art gradient boosting (current gold standard)</li>
+          <li><strong>Feed-Forward Neural Network</strong> - Deep learning approach</li>
+        </ul>
+
+        <h3>Feature Analysis with SHAP</h3>
+        <p>SHAP (SHapley Additive exPlanations) analysis identified key drivers of surgical duration and overrun likelihood by quantifying how each feature contributes to predictions. Two models were developed:</p>
+        <ul style="line-height: 1.8;">
+          <li><strong>Duration Regressor:</strong> Predicts actual surgery length in minutes</li>
+          <li><strong>Overrun Classifier:</strong> Predicts likelihood of exceeding scheduled time</li>
+        </ul>
+
+        <div style="background: #f0f7ff; border-left: 4px solid var(--accent-color); padding: 1.5rem; margin: 2rem 0;">
+          <p style="margin: 0;"><strong>Dataset:</strong> 94,502 elective orthopaedic procedures (2010-2025) with 36 features including patient demographics, clinical comorbidities, procedure details, scheduling context, and staff identifiers.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results/Impact Section -->
+    <section class="section" style="background: var(--bg-light); padding: 3rem 0;">
+      <div class="container" style="max-width: 900px;">
+        <h2>Results & Impact</h2>
+
+        <h3>Predictive Performance</h3>
+        <p>AutoGluon achieved <strong>state-of-the-art performance</strong> with minimal technical configuration:</p>
+
+        <div style="background: white; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--accent-color);">
+                <th style="text-align: left; padding: 0.75rem;">Model</th>
+                <th style="text-align: right; padding: 0.75rem;">MAE (minutes)</th>
+                <th style="text-align: right; padding: 0.75rem;">R²</th>
+                <th style="text-align: right; padding: 0.75rem;">Improvement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 0.75rem;"><strong>AutoGluon (1 hour)</strong></td>
+                <td style="text-align: right; padding: 0.75rem;"><strong>15.70</strong></td>
+                <td style="text-align: right; padding: 0.75rem;"><strong>0.77</strong></td>
+                <td style="text-align: right; padding: 0.75rem; color: #059669;"><strong>26% vs XGBoost</strong></td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 0.75rem;"><strong>AutoGluon (4 hours)</strong></td>
+                <td style="text-align: right; padding: 0.75rem;"><strong>11.84</strong></td>
+                <td style="text-align: right; padding: 0.75rem;"><strong>0.88</strong></td>
+                <td style="text-align: right; padding: 0.75rem; color: #059669;"><strong>46% vs surgeon estimates</strong></td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 0.75rem;">XGBoost</td>
+                <td style="text-align: right; padding: 0.75rem;">16.02</td>
+                <td style="text-align: right; padding: 0.75rem;">0.77</td>
+                <td style="text-align: right; padding: 0.75rem;">—</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 0.75rem;">Neural Network</td>
+                <td style="text-align: right; padding: 0.75rem;">17.67</td>
+                <td style="text-align: right; padding: 0.75rem;">—</td>
+                <td style="text-align: right; padding: 0.75rem;">—</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 0.75rem;">Linear Regression</td>
+                <td style="text-align: right; padding: 0.75rem;">20.25</td>
+                <td style="text-align: right; padding: 0.75rem;">0.69</td>
+                <td style="text-align: right; padding: 0.75rem;">—</td>
+              </tr>
+              <tr style="background: #fef3f2;">
+                <td style="padding: 0.75rem; color: #991b1b;">Surgeon Estimates (baseline)</td>
+                <td style="text-align: right; padding: 0.75rem; color: #991b1b;">~59-70</td>
+                <td style="text-align: right; padding: 0.75rem;">—</td>
+                <td style="text-align: right; padding: 0.75rem;">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Key Feature Drivers</h3>
+        <p>SHAP analysis revealed which factors most strongly influence surgery duration and overrun risk:</p>
+
+        <div class="grid-2" style="gap: 2rem; margin: 2rem 0;">
+          <div style="background: white; padding: 2rem; border-radius: 8px;">
+            <h4 style="margin-top: 0; color: var(--accent-color);">Duration Predictors</h4>
+            <ol style="line-height: 1.8;">
+              <li><strong>Intended Management</strong> (inpatient vs day case)<br><span style="color: var(--text-secondary); font-size: 0.9rem;">Mean SHAP: 17.8 minutes</span></li>
+              <li><strong>Procedure Code</strong><br><span style="color: var(--text-secondary); font-size: 0.9rem;">Mean SHAP: 15.8 minutes</span></li>
+              <li><strong>Anaesthetic Type</strong><br><span style="color: var(--text-secondary); font-size: 0.9rem;">General vs regional</span></li>
+            </ol>
+          </div>
+
+          <div style="background: white; padding: 2rem; border-radius: 8px;">
+            <h4 style="margin-top: 0; color: var(--accent-color);">Overrun Risk Drivers</h4>
+            <ol style="line-height: 1.8;">
+              <li><strong>Procedure Code</strong><br><span style="color: var(--text-secondary); font-size: 0.9rem;">Mean SHAP: 9.9 percentage points</span></li>
+              <li><strong>Year</strong><br><span style="color: var(--text-secondary); font-size: 0.9rem;">Temporal scheduling changes</span></li>
+              <li><strong>Theatre Location</strong><br><span style="color: var(--text-secondary); font-size: 0.9rem;">Equipment and setup differences</span></li>
+            </ol>
+          </div>
+        </div>
+
+        <h3>Operational Insights</h3>
+        <div style="background: #f0fdf4; border-left: 4px solid #059669; padding: 1.5rem; margin: 2rem 0;">
+          <p style="margin: 0;"><strong>Key Finding:</strong> Intended management (inpatient status) strongly predicts duration but has minimal impact on overrun likelihood. This suggests schedulers already effectively account for inpatient status when allocating theatre time, but <strong>struggle to accommodate procedure-specific duration variability</strong>.</p>
+        </div>
+
+        <p><strong>Actionable recommendations for OR scheduling:</strong></p>
+        <ul style="line-height: 1.8;">
+          <li><strong>Adjust buffer times by procedure code</strong> rather than uniformly by inpatient status</li>
+          <li><strong>Batch similar procedure types together</strong> to reduce schedule uncertainty</li>
+          <li><strong>Focus on anaesthetic type</strong> as a modifiable factor in scheduling optimization</li>
+          <li><strong>Monitor temporal trends</strong> (year effects) for systematic changes in OR efficiency</li>
+        </ul>
+
+        <h3>Real-World Impact</h3>
+        <div style="background: white; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+          <h4 style="margin-top: 0;">What This Means for NHS Trusts</h4>
+          <ul style="line-height: 1.8;">
+            <li><strong>Reduced overtime:</strong> More accurate predictions = fewer late-running lists</li>
+            <li><strong>Better capacity utilization:</strong> Minimize idle time between cases</li>
+            <li><strong>Data-driven scheduling:</strong> Replace subjective estimates with evidence-based predictions</li>
+            <li><strong>Accessible implementation:</strong> AutoML requires minimal ML expertise, enabling rapid deployment across trusts</li>
+            <li><strong>Cost savings:</strong> Even small improvements in prediction accuracy translate to significant financial impact at scale</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section">
+      <div class="container" style="max-width: 900px;">
+        <h2>Technical Implementation</h2>
+
+        <h3>Data Preprocessing Pipeline</h3>
+        <p>To ensure fair model comparison, all models received identically preprocessed data:</p>
+        <ul style="line-height: 1.8;">
+          <li><strong>Cleaning:</strong> Removed features with >50% missingness, handled procedure length outliers, imputed missing procedure codes (16.56% of cases) using domain knowledge</li>
+          <li><strong>Encoding:</strong> Out-of-fold target encoding for high-cardinality features (prevents data leakage), one-hot encoding for low-cardinality features (<20 unique values)</li>
+          <li><strong>Train/Val/Test Split:</strong> 64% / 16% / 20%</li>
+        </ul>
+
+        <h3>Hyperparameter Optimization</h3>
+        <p>All baseline models (LR, XGBoost, NN) used <strong>Optuna</strong> with identical computational budgets to ensure fair comparison. AutoGluon variants tested:</p>
+        <ul style="line-height: 1.8;">
+          <li><strong>AutoGluon-raw:</strong> Minimal preprocessing (MAE: 15.38)</li>
+          <li><strong>AutoGluon-clean:</strong> Basic cleaning (MAE: 15.40)</li>
+          <li><strong>AutoGluon-processed:</strong> Full preprocessing (MAE: 15.70)</li>
+          <li><strong>AutoGluon-full:</strong> Extended 4-hour training (MAE: 11.84)</li>
+        </ul>
+
+        <p><strong>Finding:</strong> AutoGluon demonstrated robust performance regardless of preprocessing quality, with minimal difference between raw and processed data. This suggests computational resources drive performance gains more than preprocessing refinements.</p>
+
+        <h3>SHAP Analysis Methodology</h3>
+        <p>SHAP TreeExplainer was applied to XGBoost models to generate feature importance values. Mean absolute SHAP values quantify each feature's average effect on predictions, with AutoGluon's permutation feature importance providing independent validation.</p>
+
+        <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+          <p style="margin: 0;"><strong>Code & Data Availability:</strong> Full implementation including data preprocessing, model training, SHAP analysis, and interactive Streamlit dashboard available on <a href="https://github.com/rgbweston/surgery-analytics" target="_blank" rel="noopener noreferrer" class="read-more">GitHub →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section class="section" style="background: var(--bg-light); padding: 3rem 0;">
+      <div class="container" style="max-width: 900px;">
+        <h2>Conclusion & Future Work</h2>
+
+        <p>This work demonstrates that <strong>AutoML frameworks can deliver state-of-the-art predictive performance with minimal technical expertise</strong>, addressing a critical barrier to ML adoption in healthcare operations. AutoGluon's 46% improvement over surgeon estimates, combined with actionable SHAP-based insights, provides a credible pathway for NHS trusts to implement evidence-based scheduling optimization.</p>
+
+        <h3>Limitations</h3>
+        <ul style="line-height: 1.8;">
+          <li>Limited to elective orthopaedic procedures at a single NHS Trust</li>
+          <li>Dataset lacked granular chronological data and staff experience variables</li>
+          <li>Prospective validation in live theatre scheduling required to evaluate real-world impact</li>
+        </ul>
+
+        <h3>Next Steps</h3>
+        <ul style="line-height: 1.8;">
+          <li><strong>Uncertainty quantification:</strong> Provide confidence intervals for duration predictions to enable risk-informed scheduling decisions</li>
+          <li><strong>Multi-specialty expansion:</strong> Evaluate performance across surgical specialties</li>
+          <li><strong>Real-time deployment:</strong> Integrate into theatre management systems for prospective evaluation</li>
+          <li><strong>Temporal drift monitoring:</strong> Track feature importance changes over time to detect shifts in operational patterns</li>
+        </ul>
+
+        <div style="margin-top: 3rem; padding-top: 3rem; border-top: 1px solid #ddd;">
+          <p style="text-align: center;">
+            <a href="https://github.com/rgbweston/surgery-analytics" target="_blank" rel="noopener noreferrer" class="cta-button">View on GitHub</a>
+            <a href="contact.html" class="cta-secondary" style="margin-left: 1rem;">Discuss This Project</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p class="copyright">&copy; 2025 Rohan Barrowcliff | Data Science & Analytics</p>
+      <ul class="footer-links">
+        <li><a href="https://linkedin.com/in/rohanbarrowcliff" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="https://github.com/rgbweston" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="mailto:rgbweston@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>

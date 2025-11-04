@@ -49,12 +49,12 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Blog Post: Operating Theatres -->
+  <!-- Project: Surgery Scheduling with AutoML -->
   <url>
-    <loc>https://rgbweston.github.io/operating-theatres-overrun-prediction.html</loc>
-    <lastmod>2025-06-18</lastmod>
+    <loc>https://rgbweston.github.io/surgery-scheduling-ml.html</loc>
+    <lastmod>2025-11-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 
   <!-- Project: Patient QA System -->
