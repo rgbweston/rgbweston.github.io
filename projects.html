@@ -157,6 +157,39 @@
           </div>
         </article>
 
+        <!-- Project 3: Multimodal Triage Acuity Prediction -->
+        <article class="project-card" style="margin-bottom: 4rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+          <img src="assets/images/triage_roc_auc.png" alt="Multimodal Triage Acuity Prediction ROC Curves" class="project-image">
+          <div class="project-content">
+            <h2>Multimodal Deep Learning for Emergency Department Triage Acuity Prediction</h2>
+
+            <p><strong>Problem</strong></p>
+            <p>Emergency department triage determines the urgency with which patients receive care using the Emergency Severity Index (ESI, Levels 1-5). Traditional triage prediction models rely solely on structured clinical data, missing the rich contextual information contained in patient chief complaints. Accurate triage prediction can improve patient flow, reduce wait times, and ensure critical patients receive timely care.</p>
+
+            <p><strong>Approach / Tools</strong></p>
+            <p>Developed a multimodal deep learning system combining structured clinical data (vital signs, demographics) with free-text chief complaints using the MIMIC-IV-ED dataset. Implemented MPNet sentence embeddings for text understanding and designed a dual-branch convolutional neural network: text features processed through Conv1D layers, structured features through fully connected layers, with late fusion for final classification. Deployed via Streamlit web app with Docker containerization for secure evaluation in Trusted Research Environments.</p>
+
+            <p><strong>Results / Insights</strong></p>
+            <p>Achieved 0.93 micro-average ROC-AUC across all acuity levels, with particularly strong performance on critical patients (ESI Level 1: 0.93 AUC) and less urgent cases (ESI Level 4: 0.91 AUC). The multimodal approach outperformed single-modality baselines, demonstrating the value of combining numerical and textual features. The model provides a foundation for future triage decision support systems while highlighting the importance of interpretability and external validation for clinical deployment.</p>
+
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">PyTorch</span>
+              <span class="tag">MPNet</span>
+              <span class="tag">Deep Learning</span>
+              <span class="tag">Multimodal AI</span>
+              <span class="tag">MIMIC-ED</span>
+              <span class="tag">Healthcare</span>
+              <span class="tag">Streamlit</span>
+            </div>
+
+            <p class="mt-2">
+              <a href="multimodal-triage-acuity-prediction.html" class="cta-button">Read Full Case Study</a>
+              <a href="https://github.com/rgbweston/MultiModal-Triage-Acuity-Prediction" target="_blank" rel="noopener noreferrer" class="cta-secondary" style="margin-left: 1rem;">View on GitHub</a>
+            </p>
+          </div>
+        </article>
+
         <!-- Placeholder for Future Projects -->
         <div class="text-center" style="padding: 3rem 0;">
           <p style="color: var(--text-secondary); font-size: 1.1rem;">More projects coming soon...</p>

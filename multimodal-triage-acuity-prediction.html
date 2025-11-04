@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- SEO Meta Tags -->
+  <title>Multimodal Triage Acuity Prediction — Rohan Barrowcliff</title>
+  <meta name="description" content="Development of a multimodal deep learning system for predicting emergency department triage acuity using structured clinical data and free-text chief complaints.">
+  <meta name="keywords" content="triage prediction, emergency department, multimodal deep learning, MPNet, CNN, MIMIC-ED, ESI, acuity prediction, healthcare AI">
+  <meta name="author" content="Rohan Barrowcliff">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://rgbweston.github.io/multimodal-triage-acuity-prediction.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://rgbweston.github.io/multimodal-triage-acuity-prediction.html">
+  <meta property="og:title" content="Multimodal Triage Acuity Prediction">
+  <meta property="og:description" content="Development of a multimodal deep learning system for predicting emergency department triage acuity using clinical data and text.">
+  <meta property="og:image" content="https://rgbweston.github.io/assets/images/triage_roc_auc.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/main.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-14QPLF39JS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-14QPLF39JS');
+  </script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Multimodal Deep Learning for Emergency Department Triage Acuity Prediction",
+    "author": {
+      "@type": "Person",
+      "name": "Rohan Barrowcliff"
+    },
+    "description": "Development of a multimodal deep learning system combining structured clinical data and free-text for triage acuity prediction.",
+    "image": "https://rgbweston.github.io/assets/images/triage_roc_auc.png"
+  }
+  </script>
+
+  <style>
+    .article-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .article-content img {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      border-radius: 8px;
+      margin: 2rem auto;
+      display: block;
+      border: 1px solid var(--border-color);
+    }
+    .article-content p {
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .metric-card {
+      background: var(--background-alt);
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+    }
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+    }
+    .metric-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .highlight-box {
+      background: var(--background-alt);
+      border-left: 4px solid var(--accent-color);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border-radius: 4px;
+    }
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .tech-tag {
+      background: var(--accent-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="container nav-wrapper">
+      <a href="index.html" class="site-logo">Rohan Barrowcliff</a>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <article class="section">
+      <div class="container article-content">
+
+        <h1 style="text-align: center; margin-bottom: 1rem;">Multimodal Deep Learning for Emergency Department Triage Acuity Prediction</h1>
+        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+          Combining structured clinical data and free-text chief complaints to predict patient triage acuity levels
+        </p>
+
+        <img src="assets/images/triage_roc_auc.png" alt="ROC Curves showing multiclass classification performance for triage acuity prediction">
+
+        <h2>Project Overview</h2>
+        <p>
+          Emergency department triage is a critical process that determines the order and urgency with which patients receive care. The Emergency Severity Index (ESI) categorizes patients from Level 1 (most severe, life-threatening) to Level 5 (least severe). This project developed a multimodal deep learning system to predict triage acuity levels by combining traditional structured clinical data (vital signs, demographics) with free-text chief complaints processed through advanced natural language understanding.
+        </p>
+
+        <div class="highlight-box">
+          <p style="margin-bottom: 0;"><strong>Challenge:</strong> Traditional triage prediction models rely solely on structured data, missing the rich contextual information contained in patient chief complaints. This project aimed to build a multimodal system that effectively fuses numerical clinical features with semantic embeddings from text to improve prediction accuracy.</p>
+        </div>
+
+        <h2>The Journey: From Data to Deployment</h2>
+
+        <h3>Phase 1: Understanding the Problem</h3>
+        <p>
+          My journey began with studying the MIMIC-IV-ED dataset from PhysioNet—a comprehensive collection of emergency department visits containing structured clinical measurements alongside free-text chief complaints. I quickly realized that vital signs alone tell only part of the story. A patient presenting with "chest pain radiating to left arm" conveys urgency that numbers alone cannot capture.
+        </p>
+
+        <p>
+          The Emergency Severity Index presents a challenging multi-class classification problem with inherent class imbalance (ESI Level 1 patients are thankfully rare). I needed an approach that could handle both modalities effectively while maintaining clinical interpretability.
+        </p>
+
+        <h3>Phase 2: Building the Text Understanding Pipeline</h3>
+        <p>
+          The first major technical decision was choosing a text encoder. After researching biomedical NLP models, I selected <strong>all-MPNet-base-v2</strong> from sentence-transformers. While not specifically trained on medical text like BioBERT or ClinicalBERT, MPNet offers strong general semantic understanding and produces high-quality sentence embeddings (768 dimensions).
+        </p>
+
+        <p>
+          I implemented batch processing for embedding generation to handle the dataset efficiently. The preprocessing pipeline:
+        </p>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li>Tokenizes chief complaint text with padding and truncation (max 512 tokens)</li>
+          <li>Generates contextualized embeddings using MPNet's transformer architecture</li>
+          <li>Applies mean pooling across token embeddings for sentence-level representation</li>
+          <li>Caches embeddings to disk for faster subsequent training runs</li>
+        </ul>
+
+        <p>
+          This approach transformed unstructured text like "difficulty breathing, fever for 3 days" into dense vector representations capturing semantic meaning and clinical context.
+        </p>
+
+        <h3>Phase 3: Architecting the Multimodal Network</h3>
+        <p>
+          The core innovation was designing a neural architecture that could effectively fuse text and structured features. I developed a <strong>dual-branch convolutional neural network</strong>:
+        </p>
+
+        <div style="background: var(--background-alt); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+          <h4 style="margin-top: 0;">Text Branch (Convolutional Processing)</h4>
+          <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 1.8;">
+            <li><strong>Conv1D Layer 1:</strong> 1 → 64 channels, kernel size 5, extracts local patterns from embeddings</li>
+            <li><strong>MaxPool:</strong> Reduces dimensionality, retains salient features</li>
+            <li><strong>Conv1D Layer 2:</strong> 64 → 32 channels, deeper feature extraction</li>
+            <li><strong>MaxPool:</strong> Further compression to 32 × 384 = 12,288 features</li>
+            <li><strong>Flatten:</strong> Prepares for fusion with structured features</li>
+          </ul>
+        </div>
+
+        <div style="background: var(--background-alt); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+          <h4 style="margin-top: 0;">Structured Data Branch (Fully Connected)</h4>
+          <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 1.8;">
+            <li><strong>Linear Layer 1:</strong> Input features → 16 neurons with ReLU activation</li>
+            <li><strong>Linear Layer 2:</strong> 16 → 16 neurons, further non-linear transformation</li>
+            <li>Processes vital signs (temperature, heart rate, respiratory rate, O2 saturation, blood pressure, pain score)</li>
+            <li>Incorporates demographic features (gender, arrival transport method)</li>
+          </ul>
+        </div>
+
+        <div style="background: var(--background-alt); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+          <h4 style="margin-top: 0;">Fusion & Classification</h4>
+          <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 1.8;">
+            <li><strong>Concatenation:</strong> Combines 12,288 text features + 16 structured features</li>
+            <li><strong>Final Classifier:</strong> Linear layer mapping to 5-class output (ESI 1-5)</li>
+            <li><strong>Training:</strong> Cross-entropy loss, Adam optimizer (lr=0.001), 5 epochs</li>
+          </ul>
+        </div>
+
+        <h3>Phase 4: Data Preprocessing Challenges</h3>
+        <p>
+          Real-world healthcare data is messy. I encountered several data quality issues that required careful handling:
+        </p>
+
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li><strong>Pain Score Validation:</strong> Filtered records to ensure pain scores were numeric and within 0-10 range</li>
+          <li><strong>Acuity Bounds:</strong> Validated ESI scores fell within 1-5 (converting to 0-indexed for model training)</li>
+          <li><strong>Missing Data:</strong> Dropped incomplete records to maintain data integrity</li>
+          <li><strong>Feature Scaling:</strong> Applied StandardScaler to vital signs for numerical stability</li>
+          <li><strong>Categorical Encoding:</strong> One-hot encoded arrival transport and gender features</li>
+        </ul>
+
+        <p>
+          This preprocessing pipeline ensured clean, normalized inputs for both the text embeddings and structured features branches.
+        </p>
+
+        <h3>Phase 5: Training and Evaluation</h3>
+        <p>
+          Training employed stratified train-test splitting (80/20) to maintain class balance across severity levels. I used batch training (batch size 32) with GPU acceleration where available. The model converged within 5 epochs, balancing computational efficiency with learning capacity.
+        </p>
+
+        <p>
+          For evaluation, I implemented comprehensive metrics:
+        </p>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li><strong>Per-Class ROC-AUC:</strong> Evaluated discriminative ability for each acuity level separately</li>
+          <li><strong>Micro-Average AUC:</strong> Overall model performance across all classes</li>
+          <li><strong>Precision, Recall, F1-Score:</strong> Class-wise performance metrics</li>
+        </ul>
+
+        <h2>Results & Performance</h2>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value">0.93</div>
+            <div class="metric-label">ROC AUC (ESI Level 1)</div>
+            <small style="color: var(--text-secondary); font-size: 0.8rem;">Most severe cases</small>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">0.91</div>
+            <div class="metric-label">ROC AUC (ESI Level 4)</div>
+            <small style="color: var(--text-secondary); font-size: 0.8rem;">Less urgent cases</small>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">0.83</div>
+            <div class="metric-label">ROC AUC (ESI Level 2)</div>
+            <small style="color: var(--text-secondary); font-size: 0.8rem;">Emergent cases</small>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">0.93</div>
+            <div class="metric-label">Micro-Average AUC</div>
+            <small style="color: var(--text-secondary); font-size: 0.8rem;">Overall performance</small>
+          </div>
+        </div>
+
+        <h3>Key Findings</h3>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li><strong>Excellent ESI Level 1 Detection:</strong> The model achieved 0.93 AUC for the most critical patients, crucial for patient safety</li>
+          <li><strong>Strong Overall Performance:</strong> 0.93 micro-average AUC demonstrates robust multi-class discrimination</li>
+          <li><strong>Moderate Performance on ESI 2-3:</strong> Mid-acuity levels showed slightly lower AUC (0.79-0.83), likely due to clinical overlap between adjacent severity levels</li>
+          <li><strong>Multimodal Advantage:</strong> Combining text and structured features outperformed either modality alone (based on ablation testing)</li>
+        </ul>
+
+        <div class="highlight-box">
+          <p style="margin-bottom: 0;"><strong>Clinical Impact:</strong> The model demonstrates particular strength in identifying the most critical patients (ESI Level 1, AUC 0.93) and least urgent cases (ESI Levels 4-5, AUC 0.91-0.94), which is clinically valuable for triage prioritization. The slightly lower performance on mid-level acuity reflects the inherent difficulty even human clinicians face in distinguishing between adjacent ESI levels.</p>
+        </div>
+
+        <h2>Phase 6: Deployment with Streamlit</h2>
+        <p>
+          To make the model accessible for demonstration and potential clinical evaluation, I developed a Streamlit web application. The app provides an intuitive interface for clinicians to:
+        </p>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li>Input patient vital signs and demographics</li>
+          <li>Enter free-text chief complaint</li>
+          <li>Receive real-time acuity predictions with probability distributions across all ESI levels</li>
+        </ul>
+
+        <p>
+          The deployment was containerized using Docker for reproducibility and potential integration into Trusted Research Environments (TREs). This ensures the model can be evaluated in secure healthcare settings without exposing sensitive patient data.
+        </p>
+
+        <h2>Technical Architecture Summary</h2>
+
+        <div class="tech-stack">
+          <span class="tech-tag">PyTorch</span>
+          <span class="tech-tag">MPNet</span>
+          <span class="tech-tag">Sentence Transformers</span>
+          <span class="tech-tag">Convolutional Neural Networks</span>
+          <span class="tech-tag">MIMIC-IV-ED</span>
+          <span class="tech-tag">Streamlit</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">scikit-learn</span>
+        </div>
+
+        <h2>Lessons Learned & Future Directions</h2>
+
+        <p><strong>What Worked Well:</strong></p>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li>Convolutional processing of text embeddings captured local semantic patterns effectively</li>
+          <li>Late fusion (after separate branch processing) allowed each modality to develop specialized representations</li>
+          <li>Caching embeddings dramatically reduced iteration time during hyperparameter tuning</li>
+          <li>Stratified splitting maintained class balance despite severity-level imbalance</li>
+        </ul>
+
+        <p><strong>Challenges & Limitations:</strong></p>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li><strong>Class Imbalance:</strong> ESI Level 1 cases are rare; considered oversampling or class weighting in future iterations</li>
+          <li><strong>Mid-Level Confusion:</strong> ESI 2-3 distinction remains challenging; clinical guidelines themselves show overlap</li>
+          <li><strong>Interpretability:</strong> Deep learning models lack transparency; future work could incorporate attention mechanisms to highlight influential chief complaint phrases</li>
+          <li><strong>Generalizability:</strong> Model trained on MIMIC-ED (US academic hospital); external validation needed for broader deployment</li>
+        </ul>
+
+        <p><strong>Future Enhancements:</strong></p>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li>Experiment with medical domain-specific language models (BioBERT, ClinicalBERT, GatorTron)</li>
+          <li>Implement attention mechanisms for model interpretability</li>
+          <li>Incorporate temporal features (time of day, day of week, seasonal patterns)</li>
+          <li>Develop ensemble approaches combining multiple architectures</li>
+          <li>Extend to predict additional outcomes (admission likelihood, length of stay)</li>
+          <li>Conduct prospective clinical validation studies</li>
+        </ul>
+
+        <h2>Tools & Technologies</h2>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li><strong>PyTorch:</strong> Deep learning framework for model development and training</li>
+          <li><strong>Sentence Transformers:</strong> MPNet embeddings for semantic text representation</li>
+          <li><strong>MIMIC-IV-ED:</strong> Emergency department dataset from PhysioNet</li>
+          <li><strong>scikit-learn:</strong> Preprocessing, metrics, train-test splitting</li>
+          <li><strong>Streamlit:</strong> Interactive web application for model demonstration</li>
+          <li><strong>Docker:</strong> Containerization for reproducible deployment in TREs</li>
+          <li><strong>CUDA:</strong> GPU acceleration for training and inference</li>
+        </ul>
+
+        <h2>Significance & Impact</h2>
+        <p>
+          This project demonstrates that multimodal deep learning can effectively combine structured clinical data with unstructured text to predict emergency department triage acuity. Key contributions include:
+        </p>
+        <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li><strong>Methodological:</strong> Demonstrated effective fusion of numerical and textual features using dual-branch CNN architecture</li>
+          <li><strong>Clinical Relevance:</strong> Achieved strong performance on critical patient identification (ESI Level 1), essential for safety</li>
+          <li><strong>Reproducibility:</strong> Provided complete codebase, Docker deployment, and comprehensive documentation</li>
+          <li><strong>Educational Value:</strong> Serves as practical example of applied multimodal deep learning in healthcare</li>
+        </ul>
+
+        <p>
+          While not intended for immediate clinical deployment, this work provides a foundation for future triage decision support systems and demonstrates the value of integrating diverse data modalities in predictive healthcare models.
+        </p>
+
+        <div class="highlight-box">
+          <p style="margin-bottom: 0;"><strong>Ethical Considerations:</strong> All development used the publicly available MIMIC-IV-ED demo dataset. Model weights are not shared publicly due to PhysioNet data use agreement restrictions. Any future clinical application would require extensive validation, bias auditing, and regulatory approval to ensure patient safety and equity.</p>
+        </div>
+
+        <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+          <p><a href="https://github.com/rgbweston/MultiModal-Triage-Acuity-Prediction" target="_blank" rel="noopener noreferrer" class="read-more">View on GitHub →</a></p>
+          <p><a href="projects.html" class="read-more">← Back to Projects</a></p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p class="copyright">&copy; 2025 Rohan Barrowcliff | Data Science & Analytics</p>
+      <ul class="footer-links">
+        <li><a href="https://linkedin.com/in/rohanbarrowcliff" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="https://github.com/rgbweston" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="mailto:rgbweston@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
