@@ -18,7 +18,7 @@
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://rgbweston.github.io/multimodal-triage-acuity-prediction.html">
   <meta property="og:title" content="Multimodal Triage Acuity Prediction">
-  <meta property="og:description" content="Development of a multimodal deep learning system for predicting emergency department triage acuity using clinical data and text.">
+  <meta property="og:description" content="Development of a multimodal deep learning system combining clinical data and text.">
   <meta property="og:image" content="https://rgbweston.github.io/assets/images/multimodal_CNN.svg">
 
   <!-- Favicon -->
@@ -115,7 +115,7 @@
     .tech-tag {
       background: var(--accent-color);
       color: white;
-      padding: 0.5rem 1rem;
+      padding 0.5rem 1rem;
       border-radius: 20px;
       font-size: 0.9rem;
       font-weight: 500;
@@ -154,6 +154,8 @@
           Emergency department triage is a critical process that determines the order and urgency with which patients receive care. The Emergency Severity Index (ESI) categorizes patients from Level 1 (most severe, life-threatening) to Level 5 (least severe). This project developed a multimodal deep learning system to predict triage acuity levels by combining traditional structured clinical data (vital signs, demographics) with free-text chief complaints processed through advanced natural language understanding.
         </p>
 
+        <img src="assets/images/triage_overview.png" alt="High-level overview of the multimodal triage acuity prediction system">
+
         <div class="highlight-box">
           <p style="margin-bottom: 0;"><strong>Challenge:</strong> Traditional triage prediction models rely solely on structured data, missing the rich contextual information contained in patient chief complaints. This project aimed to build a multimodal system that effectively fuses numerical clinical features with semantic embeddings from text to improve prediction accuracy.</p>
         </div>
@@ -168,6 +170,8 @@
         <p>
           The Emergency Severity Index presents a challenging multi-class classification problem with inherent class imbalance (ESI Level 1 patients are thankfully rare). I needed an approach that could handle both modalities effectively while maintaining clinical interpretability.
         </p>
+
+        <img src="assets/images/triage_devops_lifecycle.png" alt="DevOps lifecycle for model development, testing, and deployment">
 
         <h3>Phase 2: Building the Text Understanding Pipeline</h3>
         <p>
@@ -187,6 +191,8 @@
         <p>
           This approach transformed unstructured text like "difficulty breathing, fever for 3 days" into dense vector representations capturing semantic meaning and clinical context.
         </p>
+
+        <img src="assets/images/triage_devops_milestones.png" alt="Key development milestones in the triage prediction pipeline">
 
         <h3>Phase 3: Architecting the Multimodal Network</h3>
         <p>
@@ -239,6 +245,8 @@
         <p>
           This preprocessing pipeline ensured clean, normalized inputs for both the text embeddings and structured features branches.
         </p>
+
+        <img src="assets/images/qa_system_flowchart.png" alt="Data preprocessing and quality assurance flowchart">
 
         <h3>Phase 5: Training and Evaluation</h3>
         <p>
@@ -306,6 +314,8 @@
         <p>
           The deployment was containerized using Docker for reproducibility and potential integration into Trusted Research Environments (TREs). This ensures the model can be evaluated in secure healthcare settings without exposing sensitive patient data.
         </p>
+
+        <img src="assets/images/triage_streamlit.png" alt="Streamlit web interface for real-time triage acuity prediction">
 
         <h2>Technical Architecture Summary</h2>
 
@@ -379,8 +389,8 @@
         </div>
 
         <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
-          <p><a href="https://github.com/rgbweston/MultiModal-Triage-Acuity-Prediction" target="_blank" rel="noopener noreferrer" class="read-more">View on GitHub →</a></p>
-          <p><a href="projects.html" class="read-more">← Back to Projects</a></p>
+          <p><a href="https://github.com/rgbweston/MultiModal-Triage-Acuity-Prediction" target="_blank" rel="noopener noreferrer" class="read-more">View on GitHub</a></p>
+          <p><a href="projects.html" class="read-more">Back to Projects</a></p>
         </div>
 
       </div>
@@ -390,7 +400,7 @@
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container footer-content">
-      <p class="copyright">&copy; 2025 Rohan Barrowcliff | Data Science & Analytics</p>
+      <p class="copyright">© 2025 Rohan Barrowcliff | Data Science & Analytics</p>
       <ul class="footer-links">
         <li><a href="https://linkedin.com/in/rohanbarrowcliff" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
         <li><a href="https://github.com/rgbweston" target="_blank" rel="noopener noreferrer">GitHub</a></li>
