@@ -171,8 +171,6 @@
           The Emergency Severity Index presents a challenging multi-class classification problem with inherent class imbalance (ESI Level 1 patients are thankfully rare). I needed an approach that could handle both modalities effectively while maintaining clinical interpretability.
         </p>
 
-        <img src="assets/images/triage_devops_lifecycle.png" alt="DevOps lifecycle for model development, testing, and deployment">
-
         <h3>Phase 2: Building the Text Understanding Pipeline</h3>
         <p>
           The first major technical decision was choosing a text encoder. After researching biomedical NLP models, I selected <strong>all-MPNet-base-v2</strong> from sentence-transformers. While not specifically trained on medical text like BioBERT or ClinicalBERT, MPNet offers strong general semantic understanding and produces high-quality sentence embeddings (768 dimensions).
@@ -191,8 +189,6 @@
         <p>
           This approach transformed unstructured text like "difficulty breathing, fever for 3 days" into dense vector representations capturing semantic meaning and clinical context.
         </p>
-
-        <img src="assets/images/triage_devops_milestones.png" alt="Key development milestones in the triage prediction pipeline">
 
         <h3>Phase 3: Architecting the Multimodal Network</h3>
         <p>
@@ -229,7 +225,22 @@
           </ul>
         </div>
 
-        <h3>Phase 4: Data Preprocessing Challenges</h3>
+        <h3>Phase 4: Docker and DevOps Infrastructure</h3>
+        <p>
+          A critical aspect of this project was ensuring reproducible deployment in a Trusted Research Environment (TRE). Working with sensitive healthcare data required containerization using Docker, which packages applications and their dependencies into isolated, portable containers. The TRE provided a secure Linux environment where the MIMIC-IV-ED dataset could be accessed without compromising patient confidentiality.
+        </p>
+
+        <p>
+          The DevOps application lifecycle began with creating Docker images on my local machine using <code>requirements.txt</code> and <code>Dockerfile</code> specifications. These images were compressed into <code>.tar.gz</code> format and transferred securely into the TRE via the Airlock system. Within the TRE, images were loaded onto the local Docker registry and instantiated as running containers to execute Python scripts for exploratory data analysis, model training, and evaluation.
+        </p>
+
+        <img src="assets/images/triage_devops_lifecycle.png" alt="The DevOps application lifecycle showing Docker image creation, compression, secure transfer to TRE, and container execution">
+
+        <p>
+          Command-line scripting (bash) was essential for managing working directories, running scripts, and launching successive Docker container iterations (e.g., <code>docker load -i acuity_pred_image.tar</code>). Additionally, CUDA commands were crucial for accessing the TRE's GPU resources, both for initializing Docker containers with GPU access and assigning computationally intensive tasks like chief complaint embedding generation to the GPU during script execution.
+        </p>
+
+        <h3>Phase 5: Data Preprocessing Challenges</h3>
         <p>
           Real-world healthcare data is messy. I encountered several data quality issues that required careful handling:
         </p>
@@ -246,9 +257,7 @@
           This preprocessing pipeline ensured clean, normalized inputs for both the text embeddings and structured features branches.
         </p>
 
-        <img src="assets/images/qa_system_flowchart.png" alt="Data preprocessing and quality assurance flowchart">
-
-        <h3>Phase 5: Training and Evaluation</h3>
+        <h3>Phase 6: Training and Evaluation</h3>
         <p>
           Training employed stratified train-test splitting (80/20) to maintain class balance across severity levels. I used batch training (batch size 32) with GPU acceleration where available. The model converged within 5 epochs, balancing computational efficiency with learning capacity.
         </p>
@@ -263,6 +272,16 @@
         </ul>
 
         <h2>Results & Performance</h2>
+
+        <p>
+          The project successfully progressed through three key DevOps milestones, each representing a major advancement in deployment capability within the TRE. The first Docker container enabled successful exploratory data analysis (EDA) of the MIMIC-IV-ED dataset. The second container was adapted for the ML pipeline and included critical GPU initialization in the TRE, enabling accelerated model training. The third and final container supported the Streamlit application, integrating live text-embedding generation with the trained model weights to deliver real-time predictions.
+        </p>
+
+        <img src="assets/images/triage_devops_milestones.png" alt="DevOps milestones achieved showing three iterations of Docker containers, from initial EDA through ML pipeline development to final Streamlit deployment with live prediction capability">
+
+        <p>
+          This iterative DevOps cycle worked seamlessly with the agile methodology employed throughout the project, allowing the team to adapt to challenges during weekly sprints. Completion of these milestones underpinned the group's progression, ultimately enabling training and evaluation of four classification models: two for acuity prediction and two for hospital admission disposition.
+        </p>
 
         <div class="metrics-grid">
           <div class="metric-card">
@@ -287,9 +306,12 @@
           </div>
         </div>
 
-        <img src="assets/images/triage_roc_auc.png" alt="ROC Curves showing multiclass classification performance for triage acuity prediction">
+        <img src="assets/images/triage_roc_auc.png" alt="MultiCNN-Acuity Model ROC-AUC curves for multi-class Emergency Severity Index (ESI) prediction, calculated using one-vs-rest approach with micro-average representing weighted average performance across all ESI classes">
 
         <h3>Key Findings</h3>
+        <p>
+          To compare and assess model performance, accuracy and F1 score metrics were prioritized. Accuracy is widely used both in research and in quantifying nurse triage performance, making it an appropriate benchmark. F1 score balances precision and recall, providing more informative evaluation under class imbalance conditions. The MultiCNN-Acuity model achieved an accuracy of 0.70 and F1 score of 0.68, improving upon emergency nurse accuracy (0.64) though not yet surpassing emergency physician performance (0.75).
+        </p>
         <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
           <li><strong>Excellent ESI Level 1 Detection:</strong> The model achieved 0.93 AUC for the most critical patients, crucial for patient safety</li>
           <li><strong>Strong Overall Performance:</strong> 0.93 micro-average AUC demonstrates robust multi-class discrimination</li>
@@ -301,9 +323,14 @@
           <p style="margin-bottom: 0;"><strong>Clinical Impact:</strong> The model demonstrates particular strength in identifying the most critical patients (ESI Level 1, AUC 0.93) and least urgent cases (ESI Levels 4-5, AUC 0.91-0.94), which is clinically valuable for triage prioritization. The slightly lower performance on mid-level acuity reflects the inherent difficulty even human clinicians face in distinguishing between adjacent ESI levels.</p>
         </div>
 
-        <h2>Phase 6: Deployment with Streamlit</h2>
+        <h2>Phase 7: Deployment with Streamlit</h2>
+
         <p>
-          To make the model accessible for demonstration and potential clinical evaluation, I developed a Streamlit web application. The app provides an intuitive interface for clinicians to:
+          To make the model accessible for demonstration and potential clinical evaluation, I developed a Streamlit web application. The application's function was to mimic a clinician decision support tool and enable live prediction of acuity. This required integrating several critical components: (i) a custom Docker container with Streamlit dependencies; (ii) live text-embedding generation using the MPNet model; (iii) the complete ML pipeline including data preprocessing and trained model weights; and (iv) thoughtful user interface and experience (UI/UX) design considerations.
+        </p>
+
+        <p>
+          From a UI/UX perspective, the interface was designed to balance simplicity, usability, and safety. Recognizing that such an application could potentially be regulated as a medical device due to its ability to guide clinical decisions, several safety features were incorporated. The app provides an intuitive interface for clinicians to:
         </p>
         <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
           <li>Input patient vital signs and demographics</li>
@@ -312,10 +339,14 @@
         </ul>
 
         <p>
-          The deployment was containerized using Docker for reproducibility and potential integration into Trusted Research Environments (TREs). This ensures the model can be evaluated in secure healthcare settings without exposing sensitive patient data.
+          The deployment was containerized using Docker for reproducibility and secure operation within the TRE. This ensures the model can be evaluated in secure healthcare settings without exposing sensitive patient data.
         </p>
 
-        <img src="assets/images/triage_streamlit.png" alt="Streamlit web interface for real-time triage acuity prediction">
+        <img src="assets/images/triage_streamlit.png" alt="Live acuity prediction using Streamlit application within the TRE, showing input fields for vital signs, arrival method, gender, and free-text chief complaint, with real-time Emergency Severity Index prediction and corresponding triage recommendations">
+
+        <p>
+          The final Streamlit interface accepts nine structured input variables from clinical triage assessment (temperature, heart rate, respiratory rate, oxygen saturation, blood pressure, pain score, arrival transport method, and gender) alongside the free-text chief complaint. The chief complaint is embedded in real-time using the same MPNet transformer employed during training. The application outputs a predicted ESI level (1 to 5) with appropriate action recommendations. Dual temperature units (Celsius and Fahrenheit) were included for flexibility, and a prominent notification informs users that this prediction is solely an AI-based recommendation and should not constitute a final clinical decision—supporting rather than replacing professional judgment.
+        </p>
 
         <h2>Technical Architecture Summary</h2>
 
@@ -342,20 +373,23 @@
 
         <p><strong>Challenges & Limitations:</strong></p>
         <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
+          <li><strong>Version Control:</strong> Multiple team members concurrently developing Python scripts for preprocessing and modeling, further modified for TRE compatibility and GPU optimization, led to conflicting file versions in the GitHub repository. This was mitigated by establishing a canonical <code>main</code> folder requiring pull requests approved by two group members and detailed changelog documentation</li>
           <li><strong>Class Imbalance:</strong> ESI Level 1 cases are rare; considered oversampling or class weighting in future iterations</li>
-          <li><strong>Mid-Level Confusion:</strong> ESI 2-3 distinction remains challenging; clinical guidelines themselves show overlap</li>
+          <li><strong>Mid-Level Confusion:</strong> ESI 2-3 distinction remains challenging (AUC 0.79-0.83); clinical guidelines themselves show overlap between adjacent severity levels</li>
           <li><strong>Interpretability:</strong> Deep learning models lack transparency; future work could incorporate attention mechanisms to highlight influential chief complaint phrases</li>
-          <li><strong>Generalizability:</strong> Model trained on MIMIC-ED (US academic hospital); external validation needed for broader deployment</li>
+          <li><strong>Generalizability:</strong> Model trained on MIMIC-ED (US academic hospital); external validation on UK population needed for NHS deployment</li>
         </ul>
 
         <p><strong>Future Enhancements:</strong></p>
         <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
-          <li>Experiment with medical domain-specific language models (BioBERT, ClinicalBERT, GatorTron)</li>
-          <li>Implement attention mechanisms for model interpretability</li>
+          <li>Experiment with medical domain-specific language models such as Biomedical General Embedding (BGE-M3), which offers more powerful and clinically-oriented embeddings than the all-mpnet-base-v2 transformer used in this study. BGE-M3 likely provides superior clinical text clustering across diverse patient presentations</li>
+          <li>Incorporate LLM-based ESI classification prediction (e.g., LLaMA3.1-70B), which has demonstrated remarkable 0.91 accuracy on similar tasks</li>
+          <li>Implement feature rankings and attention mechanisms to boost clinician trust, uptake, and model interpretability</li>
+          <li>Improve predictive performance in the moderate ESI range (levels 2-3) where clinical overlap presents the greatest challenge</li>
+          <li>Conduct external validation studies to test generalizability to UK NHS patient populations</li>
           <li>Incorporate temporal features (time of day, day of week, seasonal patterns)</li>
           <li>Develop ensemble approaches combining multiple architectures</li>
           <li>Extend to predict additional outcomes (admission likelihood, length of stay)</li>
-          <li>Conduct prospective clinical validation studies</li>
         </ul>
 
         <h2>Tools & Technologies</h2>
@@ -371,17 +405,18 @@
 
         <h2>Significance & Impact</h2>
         <p>
-          This project demonstrates that multimodal deep learning can effectively combine structured clinical data with unstructured text to predict emergency department triage acuity. Key contributions include:
+          This project demonstrates that multimodal deep learning can effectively combine structured clinical data with unstructured text to predict emergency department triage acuity. In the context of NHS emergency departments where only 57% of patients now meet the 4-hour admission target (compared to 95% a decade ago), and with record 61,529 people waiting more than 12 hours in January 2025, automated triage support systems could help address the critical pressure on healthcare resources. Key contributions include:
         </p>
         <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 2;">
-          <li><strong>Methodological:</strong> Demonstrated effective fusion of numerical and textual features using dual-branch CNN architecture</li>
-          <li><strong>Clinical Relevance:</strong> Achieved strong performance on critical patient identification (ESI Level 1), essential for safety</li>
-          <li><strong>Reproducibility:</strong> Provided complete codebase, Docker deployment, and comprehensive documentation</li>
-          <li><strong>Educational Value:</strong> Serves as practical example of applied multimodal deep learning in healthcare</li>
+          <li><strong>Methodological:</strong> Demonstrated effective fusion of numerical and textual features using dual-branch CNN architecture with merged text CNN and structured data MLP</li>
+          <li><strong>Clinical Relevance:</strong> Achieved accuracy (0.70) exceeding emergency nurses (0.64) and strong performance on critical patient identification (ESI Level 1 AUC 0.93), essential for patient safety</li>
+          <li><strong>Reproducibility & Security:</strong> Provided complete containerized deployment pipeline enabling secure operation within Trusted Research Environments (TREs), ensuring patient data confidentiality while maintaining model accessibility</li>
+          <li><strong>Translational Infrastructure:</strong> Successfully demonstrated the complete DevOps lifecycle from data preprocessing through GPU-accelerated training to live web application deployment, addressing the translation gap between ML research and clinical implementation</li>
+          <li><strong>Educational Value:</strong> Serves as practical example of applied multimodal deep learning in healthcare, including agile methodology, version control, and team collaboration</li>
         </ul>
 
         <p>
-          While not intended for immediate clinical deployment, this work provides a foundation for future triage decision support systems and demonstrates the value of integrating diverse data modalities in predictive healthcare models.
+          While not intended for immediate clinical deployment without extensive validation, this work provides a foundation for future triage decision support systems and demonstrates the value of integrating diverse data modalities in predictive healthcare models. The iterative DevOps approach successfully delivered a live decision support tool that respects legal, ethical, and technical constraints required for healthcare AI applications.
         </p>
 
         <div class="highlight-box">
